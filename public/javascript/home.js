@@ -1,8 +1,8 @@
-$.get("/api/posts", (postData) => {
-    console.log("getPosts", postData);
-    outputPost(postData,$(".postsContainer"))
+$(document).ready(() => {
+    $.get("/api/posts", { followingOnly: true }, results => {
+        outputPost(results, $(".postsContainer"));
+    })
 })
-
 
 function outputPost(results,container) {
     container.html("");

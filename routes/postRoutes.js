@@ -16,7 +16,7 @@ router.get('/:id',(req,res,next) => {
     const payload ={
         pageTitle:"View Post",
         userLoggedIn:req.session.user,
-        userLoggedInJS:JSON.stringify(req.session.user),
+        userLoggedInJs:JSON.stringify(req.session.user),
         postId
     }
 
