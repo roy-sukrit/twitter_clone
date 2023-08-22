@@ -115,7 +115,7 @@ router.post("/coverPhoto", upload.single("croppedImage"), async (req, res, next)
         return res.sendStatus(400);
     }
 
-    var filePath = `/uploads/images/${req.file.filename}.png`;
+    var filePath = `/opt/render/project/src/uploads/images/${req.file.filename}.png`;
     var tempPath = req.file.path;
     var targetPath = path.join(__dirname, `../../${filePath}`);
 
