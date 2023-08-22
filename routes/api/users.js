@@ -116,8 +116,11 @@ router.post("/coverPhoto", upload.single("croppedImage"), async (req, res, next)
     }
 
     var filePath = `/opt/render/project/src/uploads/images/${req.file.filename}.png`;
-    var tempPath = req.file.path;
+    var tempPath = `/opt/render/project/src/${req.file.path}`;
+    console.log("tempPath",tempPath);
     var targetPath = path.join(__dirname, `../../${filePath}`);
+
+    console.log("targetPath",targetPath);
 
     fs.rename(tempPath, targetPath, async error => {
         if(error != null) {
