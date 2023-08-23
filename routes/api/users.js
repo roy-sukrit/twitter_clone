@@ -115,22 +115,15 @@ router.post("/coverPhoto", upload.single("croppedImage"), async (req, res, next)
         return res.sendStatus(400);
     }
 
-    var filePath = `/opt/render/project/src/uploads/images/${req.file.filename}.png`;
-    var tempPath = `/opt/render/project/src/images/${req.file.path}`;
+    var filePath = `/uploads/images/${req.file.filename}.png`;
+    var tempPath =path.join(__dirname,req.file.path);
+    console.log("filePath",filePath);
     console.log("tempPath",tempPath);
-    // var targetPath = path.join(__dirname, `../../${filePath}`);
 
-    console.log("targetPath",filePath);
+    var targetPath = path.join(__dirname, `../../${filePath}`);
+    console.log("targetPath",targetPath);
 
-    if (!fs.existsSync(tempPath)){
-        console.log("tempPath does not exists");
-        fs.mkdirSync(filePath);
-        req.session.user = await User.findByIdAndUpdate(req.session.user._id, { coverPhoto: filePath }, { new: true });
-        res.sendStatus(204);
-    }
-
-    else{
-    fs.rename(tempPath, filePath, async error => {
+    fs.rename(tempPath, targetPath, async error => {
         if(error != null) {
             console.log(error);
             return res.sendStatus(400);
@@ -139,7 +132,6 @@ router.post("/coverPhoto", upload.single("croppedImage"), async (req, res, next)
         req.session.user = await User.findByIdAndUpdate(req.session.user._id, { coverPhoto: filePath }, { new: true });
         res.sendStatus(204);
     })
-}
 
 });
 
